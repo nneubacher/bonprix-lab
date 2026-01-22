@@ -9,36 +9,78 @@ Willkommen im **Personalization Lab**. In dieser Session bauen wir einen KI-gest
 
 ### Schritt A: Python & JupyterLab
 
-1. Installieren Sie **Python 3.10+** von https://www.python.org  
-2. Installieren Sie die benötigten Pakete:
+1. Installieren Sie **Python 3.11** von https://www.python.org/downloads/
+2. Stellen Sie sicher, dass Python zum **PATH** hinzugefügt wurde.
+
+---
+
+### Schritt B: Virtuelle Umgebung (venv) einrichten **(WICHTIG)**
+
+Um zu vermeiden, dass Python-Pakete **global** installiert werden, nutzen wir eine **virtuelle Umgebung (venv)**.
+
+#### 📁 1. Virtuelle Umgebung erstellen
+Führen Sie im Projektverzeichnis folgenden Befehl aus:
+
+```bash
+python -m venv .venv
+```
+
+Dadurch wird ein Ordner `.venv` erstellt, der eine isolierte Python-Umgebung enthält.
+
+#### ▶️ 2. Virtuelle Umgebung aktivieren
+
+**macOS / Linux**
+```bash
+source .venv/bin/activate
+```
+
+**Windows (PowerShell)**
+```powershell
+.venv\Scripts\Activate.ps1
+```
+
+Nach erfolgreicher Aktivierung sehen Sie `(.venv)` am Anfang Ihrer Kommandozeile.
+
+---
+
+### Schritt C: Abhängigkeiten installieren (innerhalb der venv)
+
+⚠️ **Stellen Sie sicher, dass das venv aktiviert ist**, bevor Sie diesen Schritt ausführen.
 
 ```bash
 pip install pandas gradio plotly python-dotenv jupyterlab ibm-watsonx-ai ollama langfuse
 ```
 
-### Schritt B: Repository vorbereiten
+---
+
+### Schritt D: Repository vorbereiten
 
 - Repository klonen oder herunterladen
-- Dateien im Root-Verzeichnis:
-  - personalization_users_visible.csv
-  - reviews_all_users_in_shop.csv
+- Stellen Sie sicher, dass sich folgende Dateien im Root-Verzeichnis befinden:
+  - `personalization_users_visible.csv`
+  - `reviews_all_users_in_shop.csv`
 
 ---
 
 ## 🔑 2. Konfiguration (.env)
 
+1. Benennen Sie `.env.template` um in `.env`
+2. Tragen Sie Ihre Zugangsdaten ein:
+
 | Variable | Beschreibung |
 |--------|--------------|
-| WATSONX_API_KEY | IBM Cloud API-Key |
-| WATSONX_URL | https://eu-de.ml.cloud.ibm.com |
-| WATSONX_PROJECT_ID | watsonx Projekt-ID |
-| LANGFUSE_PUBLIC_KEY | Langfuse Public Key |
-| LANGFUSE_SECRET_KEY | Langfuse Secret Key |
-| LANGFUSE_BASE_URL | https://cloud.langfuse.com |
+| `WATSONX_API_KEY` | IBM Cloud API-Key |
+| `WATSONX_URL` | https://eu-de.ml.cloud.ibm.com |
+| `WATSONX_PROJECT_ID` | watsonx Projekt-ID |
+| `LANGFUSE_PUBLIC_KEY` | Langfuse Public Key |
+| `LANGFUSE_SECRET_KEY` | Langfuse Secret Key |
+| `LANGFUSE_BASE_URL` | https://cloud.langfuse.com |
 
 ---
 
-## 🚀 3. Start
+## 🚀 3. JupyterLab starten
+
+⚠️ **JupyterLab muss aus der aktivierten venv gestartet werden.**
 
 ```bash
 jupyter lab
@@ -48,5 +90,16 @@ jupyter lab
 
 ## ❓ Troubleshooting
 
-- pip nicht gefunden → Python zum PATH hinzufügen
-- UI hängt → capture_output=False im @observe-Decorator
+- **pip installiert global** → venv war nicht aktiviert  
+- **venv lässt sich nicht aktivieren (Windows)** →  
+  `Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned`
+- **UI hängt / keine Plots sichtbar** →  
+  `capture_output=False` im `@observe`-Decorator setzen
+
+---
+
+## 🧠 Best Practice
+
+- `.venv/` in `.gitignore` aufnehmen  
+- venv bei jedem neuen Terminal neu aktivieren  
+- Niemals `pip install` ohne aktive venv ausführen
