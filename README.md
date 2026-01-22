@@ -1,5 +1,5 @@
 # 🛍️ Bon Prix: Personalization Lab  
-### KLU Projekt: Shopping Personalisierung via NLP
+### Shopping Personalisierung via NLP
 
 Willkommen im **Personalization Lab**. In dieser Session bauen wir einen KI-gestützten Shopping-Assistenten für **bonprix**, der Kundenrezensionen basierend auf individuellen Präferenzen zusammenfasst.
 
