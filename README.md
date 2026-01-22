@@ -48,7 +48,7 @@ Nach erfolgreicher Aktivierung sehen Sie `(.venv)` am Anfang Ihrer Kommandozeile
 ⚠️ **Stellen Sie sicher, dass das venv aktiviert ist**, bevor Sie diesen Schritt ausführen.
 
 ```bash
-pip install pandas gradio plotly python-dotenv jupyterlab ibm-watsonx-ai ollama langfuse
+pip install pandas gradio plotly python-dotenv jupyterlab ibm-watsonx-ai ollama langfuse iprogress
 ```
 
 ---
