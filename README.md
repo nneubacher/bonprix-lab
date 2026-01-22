@@ -7,7 +7,7 @@ Willkommen im **Personalization Lab**. In dieser Session bauen wir einen KI-gest
 
 ## 🛠️ 1. System-Voraussetzungen & Vorbereitung
 
-### Schritt A: Python & JupyterLab
+### Schritt A: Python Installation
 
 1. Installieren Sie **Python 3.11** von https://www.python.org/downloads/
 2. Stellen Sie sicher, dass Python zum **PATH** hinzugefügt wurde.
@@ -18,7 +18,7 @@ Willkommen im **Personalization Lab**. In dieser Session bauen wir einen KI-gest
 
 Um zu vermeiden, dass Python-Pakete **global** installiert werden, nutzen wir eine **virtuelle Umgebung (venv)**.
 
-#### 📁 1. Virtuelle Umgebung erstellen
+#### 📁 1. Virtuelle Umgebung (venv) erstellen
 Führen Sie im Projektverzeichnis folgenden Befehl aus:
 
 ```bash
@@ -45,7 +45,7 @@ Nach erfolgreicher Aktivierung sehen Sie `(.venv)` am Anfang Ihrer Kommandozeile
 
 ### Schritt C: Abhängigkeiten installieren (innerhalb der venv)
 
-⚠️ **Stellen Sie sicher, dass das venv aktiviert ist**, bevor Sie diesen Schritt ausführen.
+⚠️ **Stellen Sie sicher, dass die venv aktiviert ist**, bevor Sie diesen Schritt ausführen.
 
 ```bash
 pip install pandas gradio plotly python-dotenv jupyterlab ibm-watsonx-ai ollama langfuse iprogress
@@ -78,9 +78,36 @@ pip install pandas gradio plotly python-dotenv jupyterlab ibm-watsonx-ai ollama 
 
 ---
 
-## 🚀 3. JupyterLab starten
+## 📓 3. Notebook-Varianten: Model Provider & Tracing
 
-⚠️ **JupyterLab muss aus der aktivierten venv gestartet werden.**
+Für dieses Lab stehen mehrere Notebook-Varianten zur Verfügung. Sie unterscheiden sich im **Model Provider** (Cloud vs. lokal) und darin, ob **Tracing (Beobachtbarkeit)** aktiviert ist.
+
+---
+
+### 🔹 Model Provider
+* **IBM watsonx.ai**: Cloud-basierte Enterprise-LLMs (API-Key erforderlich).
+* **Ollama**: Lokale Ausführung von LLMs (kein Cloud-Key notwendig).
+
+### 🔹 Tracing (optional)
+* **Ohne Tracing**: Fokus auf Funktionalität & Ergebnis.
+* **Mit Tracing (Langfuse)**: Zusätzlich: Nachvollziehbarkeit von Prompt, Antwort, Laufzeit & Kosten.
+
+---
+
+### 📂 Übersicht der verfügbaren Notebooks
+
+| Notebook | Model Provider | Tracing | Einsatz |
+| :--- | :--- | :---: | :--- |
+| `bonprix_lab-wx.ipynb` | watsonx.ai | ❌ | Standard-Variante (Cloud) |
+| `bonprix_lab-wx_tracing.ipynb` | watsonx.ai | ✅ | Cloud + Observability |
+| `bonprix_lab-ollama.ipynb` | Ollama | ❌ | Lokal, kein API-Key |
+| `bonprix_lab-ollama_tracing.ipynb` | Ollama | ✅ | Lokal + Observability |
+
+---
+
+## 🚀 4. JupyterLab starten
+
+⚠️ **JupyterLab muss aus aktivierter venv gestartet werden.**
 
 ```bash
 jupyter lab
