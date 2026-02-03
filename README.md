@@ -430,13 +430,17 @@ That `(.venv)` is like a badge that says "You're now working in the virtual envi
 
 Now we'll install all the tools (packages) this project needs. Think of this like buying all the ingredients before cooking a meal.
 
-**Copy and paste this entire command:**
+**We've made this easier! All required packages are listed in a file called `requirements.txt`.**
+
+**Copy and paste this command:**
 
 ```bash
-pip install pandas gradio plotly python-dotenv jupyterlab ibm-watsonx-ai ollama langfuse iprogress
+pip install -r requirements.txt
 ```
 
-**Press Enter and wait.** This will take 2-5 minutes.
+**Press Enter and wait.** This will take a few minutes.
+
+**What this does:** The `-r requirements.txt` tells pip to read the list of packages from the requirements.txt file and install them all automatically.
 
 **What each package does (in simple terms):**
 
