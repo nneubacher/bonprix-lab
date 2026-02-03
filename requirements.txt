@@ -1,0 +1,9 @@
+pandas
+gradio
+plotly
+python-dotenv
+jupyterlab
+ibm-watsonx-ai
+ollama
+langfuse
+iprogress
