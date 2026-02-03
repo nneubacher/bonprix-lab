@@ -496,7 +496,21 @@ You need three pieces of information from your IBM Cloud account:
 
 1. **WATSONX_API_KEY**: Your secret password (like a very long password)
 2. **WATSONX_PROJECT_ID**: Your project's ID number (like an account number)
-3. **WATSONX_URL**: The web address of IBM's AI service
+3. **WATSONX_URL**: The web address of IBM's AI service (automatically set to us-south for all students)
+
+### 🎯 Two Ways to Configure Credentials
+
+You have **two options** for providing your credentials. Choose the one that works best for you:
+
+#### Option 1: Using .env File (RECOMMENDED - More Secure)
+
+This is the recommended approach because it keeps your credentials separate from your code.
+
+#### Option 2: Hardcoding in Notebook (Quick Testing Only)
+
+If you have trouble with the .env file, you can enter credentials directly in the notebook code.
+
+---
 
 ### Step 1: Find Your IBM watsonx.ai Credentials
 
@@ -521,12 +535,14 @@ You need three pieces of information from your IBM Cloud account:
    - Look for **"Project ID"**
    - **Copy the Project ID**
 
-4. **Find your URL**:
-   - This is usually: `https://us-south.ml.cloud.ibm.com`
-   - Or: `https://eu-de.ml.cloud.ibm.com` (for Europe)
-   - Check your IBM Cloud region to confirm
+4. **URL (No Action Needed)**:
+   - For all students, the URL is: `https://us-south.ml.cloud.ibm.com`
+   - The code automatically uses this as a fallback, so you don't need to worry about it
+   - If your .env file has a different URL or it's empty, the code will use us-south automatically
 
-### Step 2: Create Your .env File
+---
+
+### Step 2A: Setup Using .env File (RECOMMENDED)
 
 The `.env` file is where we'll store your credentials securely.
 
@@ -544,47 +560,133 @@ The `.env` file is where we'll store your credentials securely.
 
 4. **Fill in your credentials**:
 
-The file looks like this:
+The file has detailed comments explaining each field. You only need to fill in:
 ```
-WATSONX_API_KEY = ""
-WATSONX_URL = "https://us-south.ml.cloud.ibm.com"
-WATSONX_PROJECT_ID  = ""
-
-LANGFUSE_SECRET_KEY = ""
-LANGFUSE_PUBLIC_KEY = ""
-LANGFUSE_BASE_URL = "https://cloud.langfuse.com"
+WATSONX_API_KEY="your-api-key-here"
+WATSONX_PROJECT_ID="your-project-id-here"
 ```
 
-**Replace the empty quotes with your information:**
+**Example:**
 ```
-WATSONX_API_KEY = "your-very-long-api-key-here"
-WATSONX_URL = "https://us-south.ml.cloud.ibm.com"
-WATSONX_PROJECT_ID  = "your-project-id-here"
-
-LANGFUSE_SECRET_KEY = ""
-LANGFUSE_PUBLIC_KEY = ""
-LANGFUSE_BASE_URL = "https://cloud.langfuse.com"
+WATSONX_API_KEY="oQfC_1234567890abcdefghijklmnopqrstuvwxyz"
+WATSONX_URL="https://us-south.ml.cloud.ibm.com"
+WATSONX_PROJECT_ID="a2d3b93f-1234-5678-90ab-cdef12345678"
 ```
 
-**📝 Notes:**
+**📝 Important Notes:**
 - Keep the quotes around your keys
-- Don't add extra spaces
-- The Langfuse keys are optional (only needed for the "tracing" notebooks)
-- If you're not using tracing, you can leave those empty
+- Don't add extra spaces before or after the `=` sign
+- The URL line can be left as-is (or even empty - the code will use us-south automatically)
+- The Langfuse keys are optional (only needed for the `*_tracing.ipynb` notebooks)
 
 5. **Save the file**:
    - Press **Ctrl + S** (Windows/Linux) or **Command + S** (Mac)
    - Close the text editor
 
+6. **Verify it works**:
+   - When you run the notebook, you should see: `✅ Credentials erfolgreich aus .env geladen`
+   - If you see an error, check that your API key and Project ID are correct
+
+---
+
+### Step 2B: Setup Using Hardcoded Credentials (Alternative)
+
+If you prefer to enter credentials directly in the code (or if the .env file isn't working):
+
+1. **Open your notebook** (e.g., `bonprix_lab-wx.ipynb`)
+
+2. **Find the configuration section** (near the top of the first code cell):
+   ```python
+   # OPTION 1: Credentials aus .env Datei (EMPFOHLEN für Sicherheit)
+   USE_ENV_FILE = True
+   
+   # OPTION 2: Credentials direkt hier eintragen (NUR für schnelle Tests)
+   HARDCODED_API_KEY = ""
+   HARDCODED_PROJECT_ID = ""
+   ```
+
+3. **Change `USE_ENV_FILE` to `False`**:
+   ```python
+   USE_ENV_FILE = False
+   ```
+
+4. **Fill in your credentials**:
+   ```python
+   HARDCODED_API_KEY = "oQfC_1234567890abcdefghijklmnopqrstuvwxyz"
+   HARDCODED_PROJECT_ID = "a2d3b93f-1234-5678-90ab-cdef12345678"
+   ```
+
+5. **Save the notebook** (Ctrl+S or Command+S)
+
+6. **Verify it works**:
+   - When you run the cell, you should see: `✅ Hardcoded Credentials werden verwendet`
+
+⚠️ **Warning**: This method is less secure because your credentials are in the code. Only use this for quick testing or if the .env file isn't working.
+
+---
+
+### 🔍 Troubleshooting Credentials
+
+#### Error: "WATSONX_API_KEY ist nicht gesetzt!"
+
+**Cause**: Your API key is missing or empty.
+
+**Solutions**:
+1. **If using .env file**:
+   - Check that you renamed `.env.template` to `.env`
+   - Open `.env` and verify the API key is filled in
+   - Make sure there are no extra spaces: `WATSONX_API_KEY="your-key"` (not `WATSONX_API_KEY = "your-key"`)
+   - Try restarting JupyterLab after editing the .env file
+
+2. **If using hardcoded credentials**:
+   - Make sure `USE_ENV_FILE = False`
+   - Check that `HARDCODED_API_KEY` has your actual API key
+   - Verify the quotes are correct: `HARDCODED_API_KEY = "your-key"`
+
+#### Error: "WATSONX_PROJECT_ID ist nicht gesetzt!"
+
+**Cause**: Your Project ID is missing or empty.
+
+**Solutions**: Same as above, but for the Project ID field.
+
+#### Error: "API Key ist ungültig oder abgelaufen"
+
+**Cause**: The API key is incorrect or has been deleted.
+
+**Solutions**:
+1. Go back to IBM Cloud and verify your API key
+2. Create a new API key if needed
+3. Copy the new key carefully (no extra spaces)
+4. Update your .env file or hardcoded value
+
+#### Error: "Project ID ist falsch"
+
+**Cause**: The Project ID doesn't match your watsonx.ai project.
+
+**Solutions**:
+1. Go to https://dataplatform.cloud.ibm.com
+2. Open your project
+3. Click "Manage" tab
+4. Copy the exact Project ID
+5. Update your .env file or hardcoded value
+
+#### The notebook runs but shows: "⚠️ Keine URL angegeben, verwende Standard: us-south"
+
+**This is normal!** The code automatically uses the us-south region (which is correct for all students). You can ignore this message.
+
+---
+
 ### ⚠️ Security Warning:
 
-**NEVER share your .env file with anyone!** It contains your secret credentials.
-- Don't upload it to GitHub or any public place
-- Don't email it
-- Don't post it in chat or forums
-- Think of it like your bank password
+**NEVER share your .env file or credentials with anyone!** They contain your secret credentials.
+- Don't upload them to GitHub or any public place
+- Don't email them
+- Don't post them in chat or forums
+- Think of them like your bank password
 
 The `.gitignore` file in this project is already set up to prevent accidentally uploading `.env` to GitHub.
+
+**If you used hardcoded credentials**: Remember to remove them before sharing your notebook with others!
 
 ---
 
