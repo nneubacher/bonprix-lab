@@ -616,8 +616,8 @@ If you prefer to enter credentials directly in the code (or if the .env file isn
 
 4. **Fill in your credentials**:
    ```python
-   HARDCODED_API_KEY = "oQfC_1234567890abcdefghijklmnopqrstuvwxyz"
-   HARDCODED_PROJECT_ID = "a2d3b93f-1234-5678-90ab-cdef12345678"
+   HARDCODED_API_KEY = "..."
+   HARDCODED_PROJECT_ID = "..."
    ```
 
 5. **Save the notebook** (Ctrl+S or Command+S)
@@ -1205,6 +1205,291 @@ When you're done exploring:
 3. Activate virtual environment: `source .venv/bin/activate` (Mac/Linux) or `.venv\Scripts\activate` (Windows)
 4. Start JupyterLab: `jupyter lab`
 5. Open the notebook and run all cells
+
+
+---
+
+## 🎓 Part 9: Experimentation Guide - What Should I Change Now?
+
+**Congratulations!** 🎉 If you've made it this far, you have successfully set up and run the system. Now comes the exciting part: **Experimenting and understanding how AI systems are controlled.**
+
+### 🎯 Main Goal: Understanding Prompt Engineering
+
+The most important part you should now change and test is the **prompt** - the instructions we give to the AI. This is the `build_student_prompt()` function in the notebook.
+
+**Why is this important?**
+- In practice, you control AI systems primarily through prompts, not through programming
+- Small changes in the prompt can have large effects on the output
+- This is a core competency for business informatics professionals in the AI era
+
+---
+
+### 🔬 Experiment 1: Prompt Variations (RECOMMENDED for Beginners)
+
+**What you should do:**
+1. Open the notebook `bonprix_lab-wx.ipynb`
+2. Scroll to the `build_student_prompt()` function (around line 394-454)
+3. Change the INSTRUCTIONS in the prompt
+4. Re-run the cell (Shift+Enter)
+5. Delete the cache: `bonprix_project_cache.json` (so the AI responds fresh)
+6. Restart the demo and compare the results
+
+**Concrete change suggestions:**
+
+#### Variant A: Focus on Sustainability
+Change the INSTRUCTIONS to:
+```python
+INSTRUKTIONEN:
+1. ANALYSE: Which aspects are important for this specific customer?
+2. SUSTAINABILITY: Pay special attention to hints about material quality, durability, and environmental aspects
+3. PERSONALIZATION: Summarize the reviews with regard to these priorities
+4. STYLE: Be honest and direct, max. 4 sentences, German
+```
+
+#### Variant B: Focus on Price-Performance
+```python
+INSTRUKTIONEN:
+1. ANALYSE: Which aspects are important for this customer?
+2. VALUE: Especially evaluate whether the product is worth its price
+3. COMPARISON: Mention if other customers found the product "cheap" or "expensive"
+4. STYLE: Be honest and direct, max. 4 sentences, German
+```
+
+#### Variant C: Very Short Summary
+```python
+INSTRUKTIONEN:
+1. Summarize the most important points in MAXIMUM 2 SENTENCES
+2. Be extremely concise and focused
+3. Only the most critical information for {user_name}
+```
+
+#### Variant D: Detailed Analysis
+```python
+INSTRUKTIONEN:
+1. ANALYSE: Analyze all aspects (material, fit, style, price, quality)
+2. PERSONALIZATION: Weight the aspects according to {user_name}'s preferences
+3. DETAILS: Give concrete examples from the reviews
+4. LENGTH: 6-8 sentences, structured, German
+```
+
+**What you should observe:**
+- How does the length of the answer change?
+- Which aspects are now emphasized?
+- Is the answer more helpful or less helpful?
+- How does the AI react differently to different customers?
+
+---
+
+### 🔬 Experiment 2: Change Tone and Style
+
+**Change the tone of AI responses:**
+
+#### Variant A: Professional & Formal
+Add at the end of INSTRUCTIONS:
+```python
+STYLE: Use a professional, formal tone. Use formal address (Sie).
+```
+
+#### Variant B: Friendly & Personal
+```python
+STYLE: Use a friendly, personal tone. Use informal address (Du) and write like a good friend.
+```
+
+#### Variant C: Fact-Based & Objective
+```python
+STYLE: Only facts, no opinions. Use numbers and concrete information from the reviews.
+```
+
+---
+
+### 🔬 Experiment 3: Add or Remove Context
+
+**What you can change:**
+
+#### Add More Context:
+Add additional information:
+```python
+return f"""
+The customer {user_name} ({user_meta}) is currently looking at the product "{product_name}".
+She has written {len(profile['past_reviews'].split('|'))} reviews in the past.
+
+ADDITIONAL CONTEXT:
+- Customer's average rating: {profile.get('avg_rating')} stars
+- Preferred size: {profile.get('base_size')}
+
+REVIEWS FOR THE CURRENT PRODUCT:
+{current_product_reviews}
+...
+```
+
+#### Less Context:
+Remove the customer's history and see how it affects the output:
+```python
+return f"""
+Create a summary of the following product reviews:
+
+{current_product_reviews}
+
+TASK: Summarize the most important points in 3-4 sentences.
+"""
+```
+
+---
+
+### 🔬 Experiment 4: Special Requirements (Advanced)
+
+#### A. Warning for Negative Aspects
+```python
+INSTRUKTIONEN:
+1. ANALYSE: Which aspects are important for this customer?
+2. WARNING: If more than 30% of reviews are negative, start with "⚠️ ATTENTION:"
+3. PERSONALIZATION: Summarize the reviews
+4. STYLE: Honest and direct, max. 4 sentences
+```
+
+#### B. Size Recommendation
+```python
+INSTRUKTIONEN:
+1. ANALYSE: Analyze the fit comments
+2. RECOMMENDATION: If the product "runs small" and the customer normally wears size {profile.get('base_size')}, recommend one size larger
+3. REASONING: Briefly explain why
+4. STYLE: Max. 4 sentences, German
+```
+
+#### C. Comparison with Previous Purchases
+```python
+INSTRUKTIONEN:
+1. HISTORY: Analyze {user_name}'s old reviews
+2. COMPARISON: Compare the new product with what she liked/didn't like before
+3. RECOMMENDATION: Clearly say "This fits you" or "This doesn't fit you"
+4. STYLE: Max. 4 sentences, honest, German
+```
+
+---
+
+### 🔬 Experiment 5: Change Technical Parameters (Optional)
+
+If you're feeling bolder, you can also change the **technical parameters** of the AI (around line 184-192):
+
+```python
+generate_params = {
+    GenParams.MAX_NEW_TOKENS: 400,      # Maximum length of response (100-1000)
+    GenParams.DECODING_METHOD: "greedy", # "greedy" or "sample"
+    GenParams.REPETITION_PENALTY: 1.1    # Prevents repetitions (1.0-2.0)
+}
+```
+
+**What you can test:**
+- `MAX_NEW_TOKENS: 200` → Shorter responses
+- `MAX_NEW_TOKENS: 800` → Longer, more detailed responses
+- `REPETITION_PENALTY: 1.5` → Fewer repetitions (but sometimes less natural)
+
+---
+
+### 📊 How to Document Your Experiments
+
+Create a simple table in a text document:
+
+| Experiment | Change | Customer | Product | Observation | Rating (1-5) |
+|------------|--------|----------|---------|-------------|--------------|
+| 1 | Focus Sustainability | Anna | Product 123 | AI now mentions material quality | 4/5 |
+| 2 | Very short (2 sentences) | Anna | Product 123 | Too little information | 2/5 |
+| 3 | Detailed (6-8 sentences) | Anna | Product 123 | Very helpful, but long | 4/5 |
+
+**Important questions:**
+- Which variant is most helpful for the customer?
+- Which variant would increase conversion rate?
+- Which variant reduces returns?
+- Are there unexpected results?
+
+---
+
+### 🚀 Advanced Experiments (For the Brave)
+
+If you've mastered prompt changes, you can also:
+
+#### 1. Change Data Processing
+- Line 527: Change how many reviews are used (`head(15)` → `head(30)`)
+- Line 527: Change maximum length (`[:1500]` → `[:3000]`)
+
+#### 2. Customize Visualizations
+- Lines 489-515: Change calculations for fit, aspects, etc.
+- Add new aspects (e.g., "Sustainability", "Delivery time")
+
+#### 3. Add New Features
+- Add a "Purchase recommendation" (Yes/No/Maybe)
+- Calculate a "Fit score" based on customer history
+- Create a "Similar products" recommendation
+
+---
+
+### ⚠️ Important Notes
+
+**Don't forget to delete the cache!**
+- After each prompt change, you must delete `bonprix_project_cache.json`
+- Otherwise you'll see the old, cached response
+
+**Keep costs in mind:**
+- Each AI request costs money (very little, but it adds up)
+- The cache prevents unnecessary costs
+- Test with 2-3 customers and 2-3 products, not all of them
+
+**Proceed systematically:**
+- Always change only ONE thing at a time
+- Document your changes
+- Compare results objectively
+
+---
+
+### 🎯 Learning Objectives
+
+After these experiments, you should understand:
+
+✅ **How prompts control AI output**
+- Small changes → big impact
+- Precise instructions are important
+- Context influences quality
+
+✅ **How to evaluate AI systems**
+- Not every answer is equally good
+- Business goals must be clear
+- Testing with real users is important
+
+✅ **How to improve iteratively**
+- Hypothesis → Test → Evaluation → Adjustment
+- Documentation is crucial
+- There is no "perfect" solution
+
+✅ **Practical business informatics competency**
+- You can now configure AI systems
+- You understand the business logic behind personalization
+- You can translate requirements into prompts
+
+---
+
+### 💡 Discussion Questions for the Group
+
+1. **Ethics:** Should the AI always be honest, even if it prevents a sale?
+2. **Personalization:** How much personalization is too much? When does it become "creepy"?
+3. **Bias:** Could the AI disadvantage certain customers?
+4. **Transparency:** Should customers know that an AI created the summary?
+5. **Business:** Which metrics would you use to measure success?
+
+---
+
+### 📚 Further Resources
+
+**Prompt Engineering:**
+- [IBM Prompt Tips](https://dataplatform.cloud.ibm.com/docs/content/wsj/analyze-data/fm-prompt-tips.html)
+- [Prompt Engineering Guide](https://www.promptingguide.ai/)
+
+**Python & Data Science:**
+- [Pandas Documentation](https://pandas.pydata.org/docs/)
+- [Gradio Documentation](https://www.gradio.app/docs/)
+
+**AI & Business:**
+- [Harvard Business Review: AI Strategy](https://hbr.org/topic/artificial-intelligence)
+- [McKinsey: AI in Retail](https://www.mckinsey.com/industries/retail/our-insights)
 
 ---
 
