@@ -13,9 +13,9 @@
 5. [Part 4: Setting Up Your IBM Credentials](#-part-4-setting-up-your-ibm-credentials)
 6. [Part 5: Understanding the Notebook Variants](#-part-5-understanding-the-notebook-variants)
 7. [Part 6: Running the Demo](#-part-6-running-the-demo)
-8. [Part 7: Verification Checklist](#-part-7-verification-checklist)
-9. [Part 9: Experimentation Guide - What Should I Change Now?](#-part-9-experimentation-guide---what-should-i-change-now) ⭐ **IMPORTANT**
-10. [Part 10: Troubleshooting Guide](#-part-10-troubleshooting-guide)
+8. [Part 7: Troubleshooting Guide (including Verification Checklist)](#-part-7-troubleshooting-guide)
+9. [Part 8: Experimentation Guide - What Should I Change Now?](#-part-8-experimentation-guide---what-should-i-change-now) ⭐ **IMPORTANT**
+
 ---
 
 ## 🎯 What This Demo Does (In Simple Terms)
@@ -1251,41 +1251,43 @@ When you're done exploring:
 
 ---
 
-## ✅ Part 7: Verification Checklist
+## 🔧 Part 7: Troubleshooting Guide
 
 <details>
-<summary><b>Click to expand: Verification Checklist</b></summary>
+<summary><b>Click to expand: Troubleshooting Guide</b></summary>
+
+### ✅ Verification Checklist
 
 Use this checklist to make sure everything is working correctly:
 
-### Python Installation
+#### Python Installation
 - [ ] Python 3.11 is installed
 - [ ] `python --version` (or `python3 --version`) shows Python 3.11.x
 - [ ] `pip --version` (or `pip3 --version`) works without errors
 
-### Project Setup
+#### Project Setup
 - [ ] Project files are downloaded and extracted
 - [ ] You can navigate to the project folder in terminal
 - [ ] You can see all the required files (notebooks, CSV files, .env.template)
 
-### Virtual Environment
+#### Virtual Environment
 - [ ] Virtual environment is created (`.venv` folder exists)
 - [ ] Virtual environment activates successfully
 - [ ] You see `(.venv)` in your command prompt when activated
 - [ ] All packages installed without errors
 
-### Credentials
+#### Credentials
 - [ ] `.env` file exists (renamed from `.env.template`)
 - [ ] WATSONX_API_KEY is filled in
 - [ ] WATSONX_PROJECT_ID is filled in
 - [ ] WATSONX_URL is correct for your region
 
-### JupyterLab
+#### JupyterLab
 - [ ] `jupyter lab` command starts without errors
 - [ ] Browser opens automatically (or you can open the URL manually)
 - [ ] You can see the file browser with your project files
 
-### Notebook Execution
+#### Notebook Execution
 - [ ] Notebook opens when you double-click it
 - [ ] Cell 1 (imports) runs without errors
 - [ ] Cell 2 (data loading) runs without errors
@@ -1293,7 +1295,7 @@ Use this checklist to make sure everything is working correctly:
 - [ ] Cell 4 (analysis function) runs without errors
 - [ ] Cell 5 (interface) runs and shows a URL
 
-### Demo Interface
+#### Demo Interface
 - [ ] Demo interface opens in browser
 - [ ] You can select a customer from the dropdown
 - [ ] You can select a product from the dropdown
@@ -1301,21 +1303,14 @@ Use this checklist to make sure everything is working correctly:
 - [ ] You can see visualizations in the Product Analysis tab
 - [ ] You can see customer profile in the Customer Profile tab
 
-### Cleanup
+#### Cleanup
 - [ ] You can stop JupyterLab with Ctrl+C
 - [ ] You can deactivate the virtual environment
 - [ ] You can restart everything and it still works
 
 **If you can check all these boxes, congratulations! 🎉 Everything is working perfectly!**
 
-</details>
-
 ---
-
-## 🔧 Part 8: Troubleshooting Guide
-
-<details>
-<summary><b>Click to expand: Troubleshooting Guide</b></summary>
 
 ### Windows-Specific Issues
 
@@ -1536,7 +1531,7 @@ pip install plotly
 
 ---
 
-## 🎓 Part 9: Experimentation Guide - What Should I Change Now?
+## 🎓 Part 8: Experimentation Guide - What Should I Change Now?
 
 <details open>
 <summary><b>Click to expand/collapse: Experimentation Guide (IMPORTANT!)</b></summary>
@@ -1823,275 +1818,3 @@ After these experiments, you should understand:
 
 </details>
 
----
-
-Use this checklist to make sure everything is working correctly:
-
-### Python Installation
-- [ ] Python 3.11 is installed
-- [ ] `python --version` (or `python3 --version`) shows Python 3.11.x
-- [ ] `pip --version` (or `pip3 --version`) works without errors
-
-### Project Setup
-- [ ] Project files are downloaded and extracted
-- [ ] You can navigate to the project folder in terminal
-- [ ] You can see all the required files (notebooks, CSV files, .env.template)
-
-### Virtual Environment
-- [ ] Virtual environment is created (`.venv` folder exists)
-- [ ] Virtual environment activates successfully
-- [ ] You see `(.venv)` in your command prompt when activated
-- [ ] All packages installed without errors
-
-### Credentials
-- [ ] `.env` file exists (renamed from `.env.template`)
-- [ ] WATSONX_API_KEY is filled in
-- [ ] WATSONX_PROJECT_ID is filled in
-- [ ] WATSONX_URL is correct for your region
-
-### JupyterLab
-- [ ] `jupyter lab` command starts without errors
-- [ ] Browser opens automatically (or you can open the URL manually)
-- [ ] You can see the file browser with your project files
-
-### Notebook Execution
-- [ ] Notebook opens when you double-click it
-- [ ] Cell 1 (imports) runs without errors
-- [ ] Cell 2 (data loading) runs without errors
-- [ ] Cell 3 (prompt function) runs without errors
-- [ ] Cell 4 (analysis function) runs without errors
-- [ ] Cell 5 (interface) runs and shows a URL
-
-### Demo Interface
-- [ ] Demo interface opens in browser
-- [ ] You can select a customer from the dropdown
-- [ ] You can select a product from the dropdown
-- [ ] AI generates a personalized summary (takes 5-15 seconds)
-- [ ] You can see visualizations in the Product Analysis tab
-- [ ] You can see customer profile in the Customer Profile tab
-
-### Cleanup
-- [ ] You can stop JupyterLab with Ctrl+C
-- [ ] You can deactivate the virtual environment
-- [ ] You can restart everything and it still works
-
-**If you can check all these boxes, congratulations! 🎉 Everything is working perfectly!**
-
----
-
-## 🔧 Part 10: Troubleshooting Guide
-
-### Windows-Specific Issues
-
-#### Issue: "python is not recognized as an internal or external command"
-
-**Cause:** Python wasn't added to PATH during installation
-
-**Solution:**
-1. Uninstall Python:
-   - Control Panel → Programs → Uninstall a program
-   - Find Python 3.11 and uninstall it
-2. Download Python installer again
-3. Run installer
-4. **CHECK the "Add Python to PATH" box** (this is critical!)
-5. Complete installation
-6. Open a NEW command prompt
-7. Test: `python --version`
-
----
-
-#### Issue: "Activate.ps1 cannot be loaded because running scripts is disabled"
-
-**Cause:** PowerShell's security settings prevent running scripts
-
-**Solution:**
-```powershell
-Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
-```
-Then try activating again:
-```powershell
-.venv\Scripts\Activate.ps1
-```
-
-**Alternative:** Use Command Prompt instead of PowerShell:
-```bash
-.venv\Scripts\activate.bat
-```
-
----
-
-#### Issue: Antivirus blocking Python or pip
-
-**Cause:** Some antivirus software flags Python scripts as suspicious
-
-**Solution:**
-1. Add Python to your antivirus exceptions:
-   - Usually in: `C:\Users\YourName\AppData\Local\Programs\Python\Python311`
-2. Add your project folder to exceptions
-3. Temporarily disable antivirus during installation (not recommended long-term)
-
----
-
-### macOS-Specific Issues
-
-#### Issue: "command not found: python3"
-
-**Cause:** Python installation didn't complete or isn't in PATH
-
-**Solution 1 - Reinstall Python:**
-1. Download Python 3.11 from python.org
-2. Run the installer again
-3. Make sure it completes successfully
-
-**Solution 2 - Install Xcode Command Line Tools:**
-```bash
-xcode-select --install
-```
-This installs development tools that Python needs.
-
----
-
-#### Issue: "Permission denied" when running commands
-
-**Cause:** File permissions issue
-
-**Solution:**
-```bash
-chmod +x .venv/bin/activate
-```
-Then try activating again.
-
----
-
-#### Issue: Multiple Python versions causing conflicts
-
-**Cause:** Mac comes with Python 2.7 pre-installed, plus you might have other versions
-
-**Solution:**
-Always use `python3` and `pip3` explicitly:
-```bash
-python3 --version
-pip3 install package-name
-python3 -m venv .venv
-```
-
-**Check which Python you're using:**
-```bash
-which python3
-```
-Should show: `/Library/Frameworks/Python.framework/Versions/3.11/bin/python3`
-
----
-
-### Linux-Specific Issues
-
-#### Issue: "python3.11: command not found"
-
-**Cause:** Python 3.11 not installed or not in PATH
-
-**Solution for Ubuntu/Debian:**
-```bash
-sudo apt update
-sudo apt install python3.11 python3.11-venv python3-pip
-```
-
-**Solution for Fedora:**
-```bash
-sudo dnf install python3.11 python3-pip
-```
-
----
-
-#### Issue: "Permission denied" or "Access denied"
-
-**Cause:** Need administrator privileges
-
-**Solution:**
-Use `sudo` for system-wide installations:
-```bash
-sudo apt install python3.11
-```
-
-But DON'T use sudo for:
-- Creating virtual environments
-- Installing packages in virtual environment
-- Running the notebook
-
----
-
-#### Issue: "externally-managed-environment" error
-
-**Cause:** Some Linux distributions prevent installing packages globally
-
-**Solution:**
-This is why we use virtual environments! Make sure:
-1. You created a virtual environment: `python3 -m venv .venv`
-2. You activated it: `source .venv/bin/activate`
-3. You see `(.venv)` in your prompt
-4. Then install packages: `pip install ...`
-
----
-
-### Common Issues (All Platforms)
-
-#### Issue: Virtual environment won't activate
-
-**Symptoms:**
-- Command runs but no `(.venv)` appears
-- Or error message appears
-
-**Solutions:**
-
-**1. Make sure you're in the project directory:**
-```bash
-pwd  # Mac/Linux - shows current directory
-cd   # Windows - shows current directory
-```
-Should show your project folder path.
-
-**2. Make sure .venv exists:**
-```bash
-ls -la .venv  # Mac/Linux
-dir .venv     # Windows
-```
-If it doesn't exist, create it:
-```bash
-python -m venv .venv  # Windows
-python3 -m venv .venv # Mac/Linux
-```
-
-**3. Use the correct activation command for your OS:**
-- Windows CMD: `.venv\Scripts\activate.bat`
-- Windows PowerShell: `.venv\Scripts\Activate.ps1`
-- Mac/Linux: `source .venv/bin/activate`
-
----
-
-#### Issue: Package installation fails
-
-**Symptoms:**
-- "Could not find a version that satisfies the requirement"
-- "ERROR: Could not install packages"
-- Installation hangs or times out
-
-**Solutions:**
-
-**1. Check internet connection:**
-```bash
-ping google.com
-```
-Press Ctrl+C to stop. If it doesn't work, fix your internet first.
-
-**2. Upgrade pip:**
-```bash
-pip install --upgrade pip
-```
-
-**3. Install packages one at a time:**
-Instead of installing all at once, try:
-```bash
-pip install pandas
-pip install gradio
-pip install plotly
-# ... etc
-```
